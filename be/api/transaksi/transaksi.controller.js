@@ -68,6 +68,7 @@ module.exports = {
                 detail.qty = req.body.qty;
                 detail.id_paket = req.body.id_paket;
                 detail.id_transaksi = result.id_transaksi;
+                detail.total = req.body.total;
 
                 // data dari detail_transaksi datang dari postman, jadi harus dikirim juga dari postman
 

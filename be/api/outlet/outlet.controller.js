@@ -105,6 +105,12 @@ module.exports = {
     // controller DELETE
     controllerDelete: (req, res) => {
         const param = { id_outlet: req.body.id_outlet };
+        const oldFileName = result.image
+            
+        // delete old file
+        const dir = path.join(__dirname,"../image/outlet",oldFileName)
+        fs.unlink(dir, err => console.log(err))
+
         outlet
             .destroy({ where: param })
             .then((result) => {
