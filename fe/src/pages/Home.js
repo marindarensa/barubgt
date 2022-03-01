@@ -6,6 +6,146 @@ import { base_url } from "../Config"
 export default class Home extends React.Component {
     constructor() {
         super()
+
+        this.state = {
+            token: "",
+            adminName: null,
+            memberCount: 0,
+            outletCount: 0,
+            paketCount: 0,
+            transaksiCount: 0,
+            userCount: 0
+        }
+        if (localStorage.getItem("token")) {
+            this.state.token = localStorage.getItem("token")
+        } else {
+            window.location = "/login"
+        }
+    }
+
+    getMember = () => {
+        let url = base_url + "/member"
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+            .then(response => {
+                this.setState({ memberCount: response.data.length })
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status) {
+                        window.alert(error.response.data.message)
+                        this.props.history.push("/login")
+                    }
+                } else {
+                    console.log(error);
+                }
+            })
+    }
+
+    getOutlet = () => {
+        let url = base_url + "/outlet"
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+            .then(response => {
+                this.setState({ outletCount: response.data.length })
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status) {
+                        window.alert(error.response.data.message)
+                        this.props.history.push("/login")
+                    }
+                } else {
+                    console.log(error);
+                }
+            })
+    }
+
+    getPaket = () => {
+        let url = base_url + "/paket"
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+            .then(response => {
+                this.setState({ paketCount: response.data.length })
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status) {
+                        window.alert(error.response.data.message)
+                        this.props.history.push("/login")
+                    }
+                } else {
+                    console.log(error);
+                }
+            })
+    }
+
+    getUsers = () => {
+        let url = base_url + "/user"
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+            .then(response => {
+                this.setState({ usersCount: response.data.length })
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status) {
+                        window.alert(error.response.data.message + " getUsers")
+                        this.props.history.push("/login")
+                    }
+                } else {
+                    console.log(error)
+                }
+
+            })
+    }
+
+    getTransaksi = () => {
+        let url = base_url + "/transaksi"
+        axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + this.state.token
+            }
+        })
+            .then(response => {
+                this.setState({ transaksiCount: response.data.length })
+            })
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status) {
+                        window.alert(error.response.data.message)
+                        this.props.history.push("/login")
+                    }
+                } else {
+                    console.log(error);
+                }
+            })
+    }
+
+    getUser = () => {
+        let user = JSON.parse(localStorage.getItem('user'))
+        this.setState({ userName: user.name })
+    }
+
+    componentDidMount() {
+        this.getMember()
+        this.getOutlet()
+        this.getPaket()
+        this.getUsers()
+        this.getTransaksi()
+        this.getUser()
     }
     render() {
         return (
@@ -13,60 +153,74 @@ export default class Home extends React.Component {
                 <Navbar />
                 <div className="container mt-2">
                     <h3 className="my-2">
-                        <strong>Welcome back, </strong>
+                        <strong>Welcome back, {this.state.userName} </strong>
                     </h3>
                     <div className="row">
-                        {/* products count */}
+                        {/* member count */}
                         <div className="col-lg-4 col-md-6 col-sm-12 mt-2">
                             <div className="card">
                                 <div className="card-body bg-success">
                                     <h4 className="text-dark">
-                                        <strong>Products Count</strong>
+                                        <strong>Member Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>0</strong>
+                                        <strong>{this.state.memberCount}</strong>
                                     </h1>
                                 </div>
                             </div>
                         </div>
 
-                        {/* customer count */}
+                        {/* outlet count */}
                         <div className="col-lg-4 col-md-6 col-sm-12 mt-2">
                             <div className="card">
                                 <div className="card-body bg-info">
                                     <h4 className="text-dark">
-                                        <strong>Customers Count</strong>
+                                        <strong>Outlet Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>0</strong>
+                                        <strong>{this.state.outletCount}</strong>
                                     </h1>
                                 </div>
                             </div>
                         </div>
 
-                        {/* transactions count */}
+                        {/* paket count */}
                         <div className="col-lg-4 col-md-6 col-sm-12 mt-2">
                             <div className="card">
                                 <div className="card-body bg-warning">
                                     <h4 className="text-dark">
-                                        <strong>Transactions Count</strong>
+                                        <strong>Paket Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>0</strong>
+                                        <strong>{this.state.paketCount}</strong>
                                     </h1>
                                 </div>
                             </div>
                         </div>
 
-                        {/* admins count */}
+                        {/* users count */}
                         <div className="col-lg-4 col-md-6 col-sm-12 mt-2">
                             <div className="card">
                                 <div className="card-body bg-danger">
                                     <h4 className="text-dark">
-                                        <strong>Admins Count</strong>
+                                        <strong>User Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>0</strong>
+                                        <strong>{this.state.usersCount}</strong>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* transaksi count */}
+                        <div className="col-lg-4 col-md-6 col-sm-12 mt-2">
+                            <div className="card">
+                                <div className="card-body bg-secondary">
+                                    <h4 className="text-dark">
+                                        <strong>Transaksi Count</strong>
+                                    </h4>
+                                    <h1 className="text-white">
+                                        <strong>{this.state.transaksiCount}</strong>
                                     </h1>
                                 </div>
                             </div>

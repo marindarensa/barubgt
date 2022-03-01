@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class MemberList extends React.Component{
+export default class UserList extends React.Component{
     render(){
         return (
             <div className="card col-sm-12 my-1">
@@ -12,10 +12,9 @@ export default class MemberList extends React.Component{
                     </div>
                     <div className="col-sm-7">
                         {/* description */}
-                        <h5 className="text-bold">Nama Member: {this.props.nama}</h5>
-                        <h6>Alamat Member: {this.props.alamat}</h6>
-                        <h6>Jenis Kelamin: {this.props.jenis_kelamin}</h6>
-                        <h6>No Telpon: {this.props.telp}</h6>
+                        <h5 className="text-bold">Nama User: {this.props.nama}</h5>
+                        <h6>Email: {this.props.email}</h6>
+                        <h6>Role: {this.props.role}</h6>
                     </div>
                     <div className="col-sm-2">
                         {/* action */}
