@@ -153,7 +153,7 @@ export default class Home extends React.Component {
                 <Navbar />
                 <div className="container mt-2">
                     <h3 className="my-2">
-                        <strong>Welcome back, {this.state.userName} </strong>
+                        <strong>Welcome back, {this.state.user} </strong>
                     </h3>
                     <div className="row">
                         {/* member count */}
@@ -164,7 +164,7 @@ export default class Home extends React.Component {
                                         <strong>Member Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>{this.state.memberCount}</strong>
+                                        <strong>{this.state.member}</strong>
                                     </h1>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@ export default class Home extends React.Component {
                                         <strong>Outlet Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>{this.state.outletCount}</strong>
+                                        <strong>{this.state.outlet}</strong>
                                     </h1>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@ export default class Home extends React.Component {
                                         <strong>Paket Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>{this.state.paketCount}</strong>
+                                        <strong>{this.state.paket}</strong>
                                     </h1>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@ export default class Home extends React.Component {
                                         <strong>User Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>{this.state.usersCount}</strong>
+                                        <strong>{this.state.user}</strong>
                                     </h1>
                                 </div>
                             </div>
@@ -220,7 +220,7 @@ export default class Home extends React.Component {
                                         <strong>Transaksi Count</strong>
                                     </h4>
                                     <h1 className="text-white">
-                                        <strong>{this.state.transaksiCount}</strong>
+                                        <strong>{this.state.transaksi}</strong>
                                     </h1>
                                 </div>
                             </div>
