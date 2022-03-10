@@ -19,7 +19,7 @@ export default class Home extends React.Component {
         if (localStorage.getItem("token")) {
             this.state.token = localStorage.getItem("token")
         } else {
-            window.location = "/login"
+            // window.location = "/login"
         }
     }
 
@@ -36,7 +36,7 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message)
+                        // window.alert(error.response.data.message)
                         this.props.history.push("/login")
                     }
                 } else {
@@ -58,7 +58,8 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message)
+                        // window.alert(error.response.data.message)
+
                         this.props.history.push("/login")
                     }
                 } else {
@@ -80,7 +81,7 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message)
+                        // window.alert(error.response.data.message)
                         this.props.history.push("/login")
                     }
                 } else {
@@ -102,7 +103,7 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message + " getUsers")
+                        // window.alert(error.response.data.message + " getUsers")
                         this.props.history.push("/login")
                     }
                 } else {
@@ -125,7 +126,7 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message)
+                        // window.alert(error.response.data.message)
                         this.props.history.push("/login")
                     }
                 } else {
