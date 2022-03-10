@@ -45,7 +45,7 @@ export default class Outlet extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        window.alert(error.response.data.message)
+                        // window.alert(error.response.data.message)
                         this.props.history.push("/login")
                     }
                 } else {
@@ -95,14 +95,14 @@ export default class Outlet extends React.Component {
         if (this.state.action === "insert") {
             axios.post(url, form, this.headerConfig())
                 .then(response => {
-                    window.alert(response.data.message)
+                    // window.alert(response.data.message)
                     this.getOutlet()
                 })
                 .catch(error => console.log(error))
         } else if (this.state.action === "update") {
             axios.put(url, form, this.headerConfig())
                 .then(response => {
-                    window.alert(response.data.message)
+                    // window.alert(response.data.message)
                     this.getOutlet()
                 })
                 .catch(error => console.log(error))
@@ -114,7 +114,7 @@ export default class Outlet extends React.Component {
             let url = base_url + "/outlet/" + selectedItem.id_outlet
             axios.delete(url, this.headerConfig())
                 .then(response => {
-                    window.alert(response.data.message)
+                    // window.alert(response.data.message)
                     this.getOutlet()
                 })
                 .catch(error => console.log(error))

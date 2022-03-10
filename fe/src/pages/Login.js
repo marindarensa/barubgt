@@ -47,12 +47,12 @@ class Login extends React.Component {
 
                     // redirect
                     // this.props.history.push("/dashboard")
-                    window.location = "/";
+                    // window.location = "/";
                 } else {
                     this.setState({
                         message: response.data.message,
                     });
-                    alert(this.state.message);
+                    // alert(this.state.message);
                 }
             })
             .catch((error) => console.log(error));

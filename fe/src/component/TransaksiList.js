@@ -77,6 +77,18 @@ export default class TransaksiList extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className="col-sm-2">
+                        {/* action */}
+                        <button className="btn btn-sm btn-primary btn-block"
+                        onClick={this.props.onEdit}>
+                            Edit
+                        </button>
+
+                        <button className="btn btn-sm btn-danger btn-block"
+                        onClick={this.props.onDrop}>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         )
