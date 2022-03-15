@@ -4,22 +4,22 @@ import axios from "axios"
 import { base_url } from "../Config"
 
 export default class Home extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             token: "",
-            adminName: null,
-            memberCount: 0,
-            outletCount: 0,
-            paketCount: 0,
-            transaksiCount: 0,
-            userCount: 0
+            username: "",
+            member: 0,
+            outlet: 0,
+            paket: 0,
+            transaksi: 0,
+            user: 0,
         }
         if (localStorage.getItem("token")) {
             this.state.token = localStorage.getItem("token")
         } else {
-            // window.location = "/login"
+            window.location = "/login"
         }
     }
 
@@ -31,7 +31,7 @@ export default class Home extends React.Component {
             }
         })
             .then(response => {
-                this.setState({ memberCount: response.data.length })
+                this.setState({ member: response.data.data.length })
             })
             .catch(error => {
                 if (error.response) {
@@ -53,7 +53,7 @@ export default class Home extends React.Component {
             }
         })
             .then(response => {
-                this.setState({ outletCount: response.data.length })
+                this.setState({ outlet: response.data.data.length })
             })
             .catch(error => {
                 if (error.response) {
@@ -76,7 +76,7 @@ export default class Home extends React.Component {
             }
         })
             .then(response => {
-                this.setState({ paketCount: response.data.length })
+                this.setState({ paket: response.data.data.length })
             })
             .catch(error => {
                 if (error.response) {
@@ -90,7 +90,7 @@ export default class Home extends React.Component {
             })
     }
 
-    getUsers = () => {
+    getUser = () => {
         let url = base_url + "/user"
         axios.get(url, {
             headers: {
@@ -98,7 +98,7 @@ export default class Home extends React.Component {
             }
         })
             .then(response => {
-                this.setState({ usersCount: response.data.length })
+                this.setState({ user: response.data.data.length })
             })
             .catch(error => {
                 if (error.response) {
@@ -121,7 +121,7 @@ export default class Home extends React.Component {
             }
         })
             .then(response => {
-                this.setState({ transaksiCount: response.data.length })
+                this.setState({ transaksi: response.data.data.length })
             })
             .catch(error => {
                 if (error.response) {
@@ -135,9 +135,9 @@ export default class Home extends React.Component {
             })
     }
 
-    getUser = () => {
+    getUsers = () => {
         let user = JSON.parse(localStorage.getItem('user'))
-        this.setState({ userName: user.name })
+        this.setState({ username: user.nama })
     }
 
     componentDidMount() {
@@ -154,7 +154,7 @@ export default class Home extends React.Component {
                 <Navbar />
                 <div className="container mt-2">
                     <h3 className="my-2">
-                        <strong>Welcome back, {this.state.user} </strong>
+                        <strong>Welcome back, {this.state.username} </strong>
                     </h3>
                     <div className="row">
                         {/* member count */}

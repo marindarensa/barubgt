@@ -21,6 +21,7 @@ export default class Transaksi extends React.Component {
             outlet: [],
             selectedItem: null
         }
+    
 
         /* logika if-else --> untuk mengecek apakah user yg mengakses telah melakukan
            login sebagai admin atau belum
@@ -30,6 +31,7 @@ export default class Transaksi extends React.Component {
         } else {
             window.location = "/login"
         }
+    }
 
         // header config -> untuk memberikan header berupa 'beare token' sebagai request API
         // sebelum mengakses data
@@ -45,12 +47,13 @@ export default class Transaksi extends React.Component {
             let url = base_url + "/transaksi"
             axios.get(url, this.headerConfig())
                 .then(response => {
-                    this.setState({ transaksi: response.data })
+                    this.setState({ transaksi: response.data.data })
+                    console.log(this.state.transaksi);
                 })
                 .catch(error => {
                     if (error.response) {
                         if (error.response.status) {
-                            // window.alert(error.response.data.message)
+                            window.alert(error.response.data.message)
                             this.props.history.push("/login")
                         }
                     } else {
@@ -142,7 +145,7 @@ export default class Transaksi extends React.Component {
                     .catch(error => console.log(error))
             }
         }
-    }
+    
     componentDidMount() {
         this.getTransaksi()
     }
@@ -153,14 +156,15 @@ export default class Transaksi extends React.Component {
                 <Navbar />
                 <div className="container">
                     <h3 className="text-bold text-info mt-2">Transaksi List</h3>
+                    <button className="btn btn-sm btn-block btn-success" data-toggle="modal" data-target="#modal_paket">Tambah</button>
                     {this.state.transaksi.map(item => (
                         <TransaksiList
                             key={item.id_transaksi}
                             id_transaksi={item.id_transaksi}
-                            nama_member={item.member.nama_member}
+                            nama={item.member.nama}
                             alamat={item.member.alamat}
+                            paket={item.paket.jenis}
                             tgl={item.tgl}
-                            paket={item.detail_transaksi}
                         />
                     ))}
                 </div>
@@ -189,21 +193,21 @@ export default class Transaksi extends React.Component {
                                     />
 
                                     Tanggal
-                                    <input type="text" className="form-control mb-1"
+                                    <input type="date" className="form-control mb-1"
                                         value={this.state.tgl}
                                         onChange={ev => this.setState({ tgl: ev.target.value })}
                                         required
                                     />
 
                                     Batas Waktu
-                                    <input type="text" className="form-control mb-1"
+                                    <input type="date" className="form-control mb-1"
                                         value={this.state.batas_waktu}
                                         onChange={ev => this.setState({ batas_waktu: ev.target.value })}
                                         required
                                     />
 
                                     Tanggal Dibayar
-                                    <input type="text" className="form-control mb-1"
+                                    <input type="date" className="form-control mb-1"
                                         value={this.state.tgl_bayar}
                                         onChange={ev => this.setState({ tgl_bayar: ev.target.value })}
                                         required

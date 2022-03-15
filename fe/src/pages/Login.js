@@ -46,8 +46,8 @@ class Login extends React.Component {
                     localStorage.setItem("token", token);
 
                     // redirect
-                    // this.props.history.push("/dashboard")
-                    // window.location = "/";
+                    this.props.history.push("/dashboard")
+                    window.location = "/";
                 } else {
                     this.setState({
                         message: response.data.message,

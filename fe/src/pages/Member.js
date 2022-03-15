@@ -42,7 +42,7 @@ export default class Member extends React.Component {
         let url = base_url + "/member"
         axios.get(url, this.headerConfig())
             .then(response => {
-                this.setState({ member: response.data })
+                this.setState({ member: response.data.data })
             })
             .catch(error => {
                 if (error.response) {
@@ -57,7 +57,7 @@ export default class Member extends React.Component {
     }
 
     Add = () => {
-        window.$("#modal_member").modal("show")
+        $("#modal_member").modal("show")
         this.setState({
             action: "insert",
             id_member: 0,
@@ -73,7 +73,7 @@ export default class Member extends React.Component {
 
 
     Edit = selectedItem => {
-        window.$("#modal_member").modal("show")
+        $("#modal_member").modal("show")
         this.setState({
             action: "update",
             id_member: selectedItem.id_member,
@@ -89,7 +89,7 @@ export default class Member extends React.Component {
 
     saveMember = event => {
         event.preventDefault()
-        window.$("#modal_member").modal("hide")
+        $("#modal_member").modal("hide")
         let form = new FormData()
         form.append("id_member", this.state.id_member)
         form.append("nama", this.state.nama)

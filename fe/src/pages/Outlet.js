@@ -1,6 +1,6 @@
 import React from "react"
 import Navbar from "../component/Navbar"
-import OutletList from "../component/Outlet"
+import OutletList from "../component/OutletList"
 import { base_url, outlet_image_url } from "../Config.js"
 import $ from "jquery"
 import axios from "axios"
@@ -40,7 +40,7 @@ export default class Outlet extends React.Component {
         let url = base_url + "/outlet"
         axios.get(url, this.headerConfig())
             .then(response => {
-                this.setState({ outlet: response.data })
+                this.setState({ outlet: response.data.data })
             })
             .catch(error => {
                 if (error.response) {
@@ -55,7 +55,7 @@ export default class Outlet extends React.Component {
     }
 
     Add = () => {
-        window.$("#modal_outlet").modal("show")
+        $("#modal_outlet").modal("show")
         this.setState({
             action: "insert",
             id_outlet: 0,
@@ -69,7 +69,7 @@ export default class Outlet extends React.Component {
 
 
     Edit = selectedItem => {
-        window.$("#modal_outlet").modal("show")
+        $("#modal_outlet").modal("show")
         this.setState({
             action: "update",
             id_outlet: selectedItem.id_outlet,
@@ -83,7 +83,7 @@ export default class Outlet extends React.Component {
 
     saveOutlet = event => {
         event.preventDefault()
-        window.$("#modal_outlet").modal("hide")
+        $("#modal_outlet").modal("hide")
         let form = new FormData()
         form.append("id_outlet", this.state.id_outlet)
         form.append("tempat", this.state.tempat)

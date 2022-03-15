@@ -40,7 +40,7 @@ export default class Paket extends React.Component {
         let url = base_url + "/paket"
         axios.get(url, this.headerConfig())
             .then(response => {
-                this.setState({ paket: response.data })
+                this.setState({ paket: response.data.data })
             })
             .catch(error => {
                 if (error.response) {
@@ -55,7 +55,7 @@ export default class Paket extends React.Component {
     }
 
     Add = () => {
-        window.$("#modal_paket").modal("show")
+        $("#modal_paket").modal("show")
         this.setState({
             action: "insert",
             id_paket: 0,
@@ -69,7 +69,7 @@ export default class Paket extends React.Component {
 
 
     Edit = selectedItem => {
-        window.$("#modal_paket").modal("show")
+        $("#modal_paket").modal("show")
         this.setState({
             action: "update",
             id_paket: selectedItem.id_paket,
@@ -83,7 +83,7 @@ export default class Paket extends React.Component {
 
     savePaket = event => {
         event.preventDefault()
-        window.$("#modal_paket").modal("hide")
+        $("#modal_paket").modal("hide")
         let form = new FormData()
         form.append("id_paket", this.state.id_paket)
         form.append("jenis", this.state.jenis)

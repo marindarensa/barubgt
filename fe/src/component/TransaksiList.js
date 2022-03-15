@@ -7,32 +7,34 @@ export default class TransaksiList extends React.Component {
                 {/* list */}
                 <div className="card col-sm-12 my-1">
                     <div className="card-body row">
-                        <div className="col-lg-4 col-sm-12">
-                            <small className="text-info">Member</small>
-                            <h6>{this.props.nama_member}</h6>
+                        <div className="col-lg-2 col-sm-12">
+                            <small className="text-info">ID</small>
+                            <h6>{this.props.id_transaksi}</h6>
                         </div>
-                        <div className="col-lg-4 col-sm-12">
+                        <div className="col-lg-2 col-sm-12">
+                            <small className="text-info">Member</small>
+                            <h6>{this.props.nama}</h6>
+                        </div>
+                        <div className="col-lg-2 col-sm-12">
                             <small className="text-info">Alamat</small>
                             <h6>{this.props.alamat}</h6>
                         </div>
+                        
                         <div className="col-lg-2 col-sm-12">
-                            <small className="text-info">Total</small>
-                            <h6 className="text-danger">Rp {this.getAmount(this.props.paket)}</h6>
+                            <small className="text-info">Paket</small>
+                            <h6>{this.props.paket}</h6>
                         </div>
                         <div className="col-lg-2 col-sm-12">
                             <small className="text-bold text-info">
-                                Time: {this.convertTime(this.props.tgl)}
+                                Time:
                             </small>
-                            <button className="btn btn-sm btn-block btn-success" data-toggle="modal"
-                                data-target={`#modalDetail${this.props.id_transaksi}`}>
-                                Details
-                            </button>
+                            <h6>{this.props.tgl}</h6>
                         </div>
                     </div>
                 </div>
 
                 {/* modal component */}
-                <div className="modal fade" id={`modalDetail${this.props.id_transaksi}`}>
+                {/* <div className="modal fade" id={`modalDetail${this.props.id_transaksi}`}>
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-header bg-success text-white">
@@ -78,7 +80,7 @@ export default class TransaksiList extends React.Component {
                         </div>
                     </div>
                     <div className="col-sm-2">
-                        {/* action */}
+                        action
                         <button className="btn btn-sm btn-primary btn-block"
                         onClick={this.props.onEdit}>
                             Edit
@@ -89,7 +91,7 @@ export default class TransaksiList extends React.Component {
                             Delete
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
