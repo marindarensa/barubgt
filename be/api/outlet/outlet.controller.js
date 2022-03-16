@@ -68,7 +68,6 @@ module.exports = {
                         message: "Data berhasil ditambahkan",
                         success: 1,
                         data: result,
-                        data,
                     });
                 })
                 .catch((error) => {
@@ -92,7 +91,6 @@ module.exports = {
                     res.json({
                         success: 1,
                         data: result,
-                        data,
                     });
                 })
                 .catch((error) => {

@@ -55,6 +55,7 @@ module.exports = {
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
             id_outlet: req.body.id_outlet,
+            id_paket: req.body.id_paket
         };
 
         transaksi
@@ -75,8 +76,8 @@ module.exports = {
                 // detail_transaksi : {
                 //  id_transaksi : foreignKey nang transaksi
                 //  id_detail_transaksi : increment,
-                //  id_paket :  teko postman
-                //  qty : teko postman
+                //  id_paket :  dari postman
+                //  qty : dari postman
                 // }
 
                 // for (let i = 0; i < detail.length; i++) {
@@ -119,6 +120,7 @@ module.exports = {
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
             id_outlet: req.body.id_outlet,
+            id_paket: req.body.id_paket
         };
         transaksi
             .update(data, { where: param })
@@ -126,7 +128,6 @@ module.exports = {
                 res.json({
                     success: 1,
                     data: result,
-                    data,
                 });
             })
             .catch((error) => {

@@ -14,7 +14,6 @@ export default class Outlet extends React.Component {
             token: "",
             action: "",
             tempat: "",
-            alamat:"",
             image: "",
             uploadFile: true,
             fillPassword: true,
@@ -60,7 +59,6 @@ export default class Outlet extends React.Component {
             action: "insert",
             id_outlet: 0,
             tempat: "",
-            alamat:"",
             image: null,
             fillPassword: true,
             uploadFile: true
@@ -74,7 +72,6 @@ export default class Outlet extends React.Component {
             action: "update",
             id_outlet: selectedItem.id_outlet,
             tempat: selectedItem.tempat,
-            alamat: selectedItem.alamat,
             image: null,
             uploadFile: false,
             fillPassword: false,
@@ -136,7 +133,6 @@ export default class Outlet extends React.Component {
                             <OutletList
                                 key={item.id_outlet}
                                 tempat={item.tempat}
-                                alamat={item.alamat}
                                 image={outlet_image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}
                                 onDrop={() => this.dropOutlet(item)}
@@ -161,13 +157,6 @@ export default class Outlet extends React.Component {
                                     <input type="text" className="form-control mb-1"
                                         value={this.state.tempat}
                                         onChange={ev => this.setState({ tempat: ev.target.value })}
-                                        required
-                                    />
-
-                                    Alamat
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.alamat}
-                                        onChange={ev => this.setState({ alamat: ev.target.value })}
                                         required
                                     />
 

@@ -11,7 +11,7 @@ const fs = require("fs"); // fs atau fole stream digunakan untuk manage file
 //---------------------------------------------------------------------------------------------
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../image/member");
+        cb(null, "./image/member");
     },
     filename: (req, file, cb) => {
         cb(null, "image-" + Date.now() + path.extname(file.originalname));
@@ -64,12 +64,13 @@ module.exports = {
                 telp: req.body.telp,
                 image: req.file.path,
             };
-            member.create(newMember).then((result) => {
+            member.create(newMember)
+            .then((result) => {
                     res.json({
                         message: "Data berhasil ditambahkan",
                         success: 1,
                         data: result,
-                        data,
+                
                     });
                 })
                 .catch((error) => {
@@ -95,7 +96,6 @@ module.exports = {
                     res.json({
                         success: 1,
                         data: result,
-                        data,
                     });
                 })
                 .catch((error) => {

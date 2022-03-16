@@ -17,8 +17,10 @@ export default class Home extends React.Component {
             user: 0,
         }
         if (localStorage.getItem("token")) {
+            // console.log("ada")
             this.state.token = localStorage.getItem("token")
         } else {
+            // console.log("tdk ada")
             window.location = "/login"
         }
     }
@@ -36,8 +38,7 @@ export default class Home extends React.Component {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status) {
-                        // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
+                        console.log(error.response.status)
                     }
                 } else {
                     console.log(error);
@@ -60,7 +61,6 @@ export default class Home extends React.Component {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
 
-                        this.props.history.push("/login")
                     }
                 } else {
                     console.log(error);
@@ -82,7 +82,6 @@ export default class Home extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
                     }
                 } else {
                     console.log(error);
@@ -104,7 +103,6 @@ export default class Home extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message + " getUsers")
-                        this.props.history.push("/login")
                     }
                 } else {
                     console.log(error)
@@ -127,7 +125,6 @@ export default class Home extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
                     }
                 } else {
                     console.log(error);

@@ -11,7 +11,7 @@ const fs = require("fs"); // fs atau fole stream digunakan untuk manage file
 //---------------------------------------------------------------------------------------------
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../image/paket");
+        cb(null, "./image/paket");
     },
     filename: (req, file, cb) => {
         cb(null, "image-" + Date.now() + path.extname(file.originalname));
@@ -67,7 +67,6 @@ module.exports = {
                     message: "Data berhasil ditambahkan",
                     success: 1,
                     data: result,
-                    data,
                 });
             });
         });
@@ -88,7 +87,6 @@ module.exports = {
                     res.json({
                         success: 1,
                         data: result,
-                        data,
                     });
                 })
                 .catch((error) => {
