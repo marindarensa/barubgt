@@ -1,97 +1,46 @@
 import React from "react";
 
 export default class TransaksiList extends React.Component {
+    getAmount = paket => {
+        let total = 0
+        // console.log(paket)
+        // paket.map(it => {
+        //     total += Number(it.paket.harga) * Number(it.qty)
+        // })
+        return total
+    }
+
+    convertTime = time => {
+        let date = new Date(time)
+        return `${date.getDate()}/${Number(date.getMonth()) + 1}/${date.getFullYear()} `
+    }
+
     render() {
         return (
-            <div>
-                {/* list */}
-                <div className="card col-sm-12 my-1">
-                    <div className="card-body row">
-                        <div className="col-lg-2 col-sm-12">
-                            <small className="text-info">ID</small>
-                            <h6>{this.props.id_transaksi}</h6>
-                        </div>
-                        <div className="col-lg-2 col-sm-12">
-                            <small className="text-info">Member</small>
-                            <h6>{this.props.nama}</h6>
-                        </div>
-                        <div className="col-lg-2 col-sm-12">
-                            <small className="text-info">Alamat</small>
-                            <h6>{this.props.alamat}</h6>
-                        </div>
-                        
-                        <div className="col-lg-2 col-sm-12">
-                            <small className="text-info">Paket</small>
-                            <h6>{this.props.paket}</h6>
-                        </div>
-                        <div className="col-lg-2 col-sm-12">
-                            <small className="text-bold text-info">
-                                Time:
-                            </small>
-                            <h6>{this.props.tgl}</h6>
-                        </div>
-                    </div>
-                </div>
-
-                {/* modal component */}
-                {/* <div className="modal fade" id={`modalDetail${this.props.id_transaksi}`}>
-                    <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
-                            <div className="modal-header bg-success text-white">
-                                <h5>Detail of Transaksi</h5>
-                            </div>
-                            <div className="modal-body">
-                                <h5>Member: {this.props.nama_member}</h5>
-                                <h6>Time: {this.convertTime(this.props.tgl)}</h6>
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Paket</th>
-                                            <th>Harga</th>
-                                            <th>Qty</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {this.props.paket.map((item, index) => (
-                                            <tr key={item.id_paket}>
-                                                <td>{`${index + 1}`}</td>
-                                                <td>{item.paket.jenis_paket}</td>
-                                                <td>Rp {item.paket.harga}</td>
-                                                <td>{item.qty}</td>
-                                                <td className="text-right">Rp {item.paket.harga * item.qty}</td>
-                                            </tr>
-                                        ))}
-                                        <tr>
-                                            <td colSpan="4" className="text-danger text-bold">
-                                                <h4>Total</h4>
-                                            </td>
-                                            <td className="text-right text-danger text-bold">
-                                                <h4>
-                                                    Rp {this.getAmount(this.props.paket)}
-                                                </h4>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <div className="card col-sm-12 my-1">
+                <div className="card-body row">
+                    <div className="col-sm-10">
+                        {/* description */}
+                        <h5 className="text-bold">Nama member: {this.props.nama}</h5>
+                        <h6>Outlet: {this.props.outlet}</h6>
+                        <h6>Status: {this.props.status}</h6>
+                        <h6>Pembayaran: {this.props.dibayar}</h6>
+                        <h6>Tanggal: {this.convertTime(this.props.tgl)}</h6>
+                        <h6>Total: Rp {this.getAmount(this.props.paket)}</h6>
                     </div>
                     <div className="col-sm-2">
-                        action
+                        {/* action */}
                         <button className="btn btn-sm btn-primary btn-block"
-                        onClick={this.props.onEdit}>
+                            onClick={this.props.onEdit}>
                             Edit
                         </button>
 
                         <button className="btn btn-sm btn-danger btn-block"
-                        onClick={this.props.onDrop}>
+                            onClick={this.props.onDrop}>
                             Delete
                         </button>
                     </div>
-                </div> */}
+                </div>
             </div>
         )
     }

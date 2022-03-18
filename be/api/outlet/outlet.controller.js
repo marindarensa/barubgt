@@ -83,8 +83,11 @@ module.exports = {
             const param = { id_outlet: req.body.id_outlet };
             const data = {
                 tempat: req.body.tempat,
-                image: req.file.path,
             };
+            if (req.file) {
+                // set new filename
+                data.image = req.file.path
+            }
             outlet
                 .update(data, { where: param })
                 .then((result) => {
@@ -101,8 +104,9 @@ module.exports = {
         });
     },
     // controller DELETE
-    controllerDelete: (req, res) => {
-        const param = { id_outlet: req.body.id_outlet };
+    controllerDelete: async (req, res) => {
+        const param = { id_outlet: req.params.id_outlet };
+        let result = await outlet.findOne({where: param})
         const oldFileName = result.image
             
         // delete old file
@@ -115,6 +119,7 @@ module.exports = {
                 res.json({
                     success: 1,
                     data: result,
+                    message: "Data Berhasil Dihapus",
                 });
             })
             .catch((error) => {

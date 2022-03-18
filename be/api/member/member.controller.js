@@ -88,8 +88,13 @@ module.exports = {
                 alamat: req.body.alamat,
                 jenis_kelamin: req.body.jenis_kelamin,
                 telp: req.body.telp,
-                image: req.file.path,
             };
+
+            if (req.file) {
+                // set new filename
+                data.image = req.file.path
+            }
+
             member
                 .update(data, { where: param })
                 .then((result) => {
@@ -106,8 +111,9 @@ module.exports = {
         });
     },
     // controller DELETE
-    controllerDelete: (req, res) => {
-        const param = { id_member: req.body.id_member };
+    controllerDelete: async (req, res) => {
+        const param = { id_member: req.params.id_member };
+        let result = await member.findOne({where: param})
         const oldFileName = result.image
             
         // delete old file
@@ -120,6 +126,7 @@ module.exports = {
                 res.json({
                     success: 1,
                     data: result,
+                    message: "Data Berhasil Dihapus",
                 });
             })
             .catch((error) => {

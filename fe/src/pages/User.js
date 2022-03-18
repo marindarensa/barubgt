@@ -1,7 +1,7 @@
 import React from "react"
 import Navbar from "../component/Navbar"
 import UserList from "../component/UserList"
-import { base_url, user_image_url } from "../Config.js"
+import { base_url, image_url } from "../Config.js"
 import $ from "jquery"
 import axios from "axios"
 
@@ -43,7 +43,7 @@ export default class User extends React.Component {
         let url = base_url + "/user"
         axios.get(url, this.headerConfig())
             .then(response => {
-                this.setState({ user: response.data })
+                this.setState({ user: response.data.data })
             })
             .catch(error => {
                 if (error.response) {
@@ -58,7 +58,7 @@ export default class User extends React.Component {
     }
 
     Add = () => {
-        window.$("#modal_user").modal("show")
+        $("#modal_user").modal("show")
         this.setState({
             action: "insert",
             id_user: 0,
@@ -75,7 +75,7 @@ export default class User extends React.Component {
 
 
     Edit = selectedItem => {
-        window.$("#modal_user").modal("show")
+    $("#modal_user").modal("show")
         this.setState({
             action: "update",
             id_user: selectedItem.id_user,
@@ -92,7 +92,7 @@ export default class User extends React.Component {
 
     saveUser = event => {
         event.preventDefault()
-        window.$("#modal_user").modal("hide")
+        $("#modal_user").modal("hide")
         let form = new FormData()
         form.append("id_user", this.state.id_user)
         form.append("nama", this.state.nama)
@@ -127,7 +127,7 @@ export default class User extends React.Component {
             let url = base_url + "/user/" + selectedItem.id_user
             axios.delete(url, this.headerConfig())
                 .then(response => {
-                    // window.alert(response.data.message)
+                    window.alert(response.data.message)
                     this.getUser()
                 })
                 .catch(error => console.log(error))
@@ -145,7 +145,7 @@ export default class User extends React.Component {
                 <div className="container">
                     <h3 className="text-bold text-info mt-2">User List</h3>
                     <div className="row">
-                        {this.state.et.map(item => (
+                        {this.state.user.map(item => (
                             <UserList
                                 key={item.id_user}
                                 nama={item.nama}
@@ -153,7 +153,7 @@ export default class User extends React.Component {
                                 password={item.password}
                                 email={item.email}
                                 role={item.role}
-                                image={user_image_url + "/" + item.image}
+                                image={image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}
                                 onDrop={() => this.dropUser(item)}
                             />

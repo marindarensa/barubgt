@@ -55,7 +55,6 @@ module.exports = {
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
             id_outlet: req.body.id_outlet,
-            id_paket: req.body.id_paket
         };
 
         transaksi
@@ -120,7 +119,6 @@ module.exports = {
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
             id_outlet: req.body.id_outlet,
-            id_paket: req.body.id_paket
         };
         transaksi
             .update(data, { where: param })
@@ -137,14 +135,16 @@ module.exports = {
             });
     },
     // controller DELETE
-    controllerDelete: (req, res) => {
-        const param = { id_transaksi: req.body.id_transaksi };
+    controllerDelete: async(req, res) => {
+        const param = { id_transaksi: req.params.id_transaksi };
+        let result = await transaksi.findOne({where: param})
         transaksi
             .destroy({ where: param })
             .then((result) => {
                 res.json({
                     success: 1,
                     data: result,
+                    message: "Data Berhasil Dihapus",
                 });
             })
             .catch((error) => {

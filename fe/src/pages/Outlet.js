@@ -1,7 +1,7 @@
 import React from "react"
 import Navbar from "../component/Navbar"
 import OutletList from "../component/OutletList"
-import { base_url, outlet_image_url } from "../Config.js"
+import { base_url, image_url } from "../Config.js"
 import $ from "jquery"
 import axios from "axios"
 
@@ -111,7 +111,7 @@ export default class Outlet extends React.Component {
             let url = base_url + "/outlet/" + selectedItem.id_outlet
             axios.delete(url, this.headerConfig())
                 .then(response => {
-                    // window.alert(response.data.message)
+                    window.alert(response.data.message)
                     this.getOutlet()
                 })
                 .catch(error => console.log(error))
@@ -133,7 +133,7 @@ export default class Outlet extends React.Component {
                             <OutletList
                                 key={item.id_outlet}
                                 tempat={item.tempat}
-                                image={outlet_image_url + "/" + item.image}
+                                image={image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}
                                 onDrop={() => this.dropOutlet(item)}
                             />

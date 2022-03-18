@@ -86,8 +86,11 @@ module.exports = {
                 email: req.body.email,
                 password: md5(req.body.password),
                 role: req.body.role,
-                image: req.file.path,
             };
+            if (req.file) {
+                // set new filename
+                data.image = req.file.path
+            }
             user
                 .update(data, { where: param })
                 .then((result) => {
@@ -104,8 +107,9 @@ module.exports = {
         });
     },
     // controller DELETE
-    controllerDelete: (req, res) => {
-        const param = { id_user: req.body.id_user };
+    controllerDelete: async (req, res) => {
+        const param = { id_user: req.params.id_user };
+        let result = await user.findOne({where: param})
         const oldFileName = result.image
             
         // delete old file
@@ -118,6 +122,7 @@ module.exports = {
                 res.json({
                     success: 1,
                     data: result,
+                    message: "Data Berhasil Dihapus",
                 });
             })
             .catch((error) => {

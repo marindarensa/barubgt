@@ -1,7 +1,7 @@
 import React from "react"
 import Navbar from "../component/Navbar"
 import MemberList from "../component/MemberList"
-import { base_url, member_image_url } from "../Config.js"
+import { base_url, image_url } from "../Config.js"
 import $ from "jquery"
 import axios from "axios"
 
@@ -94,7 +94,7 @@ export default class Member extends React.Component {
         form.append("id_member", this.state.id_member)
         form.append("nama", this.state.nama)
         form.append("alamat", this.state.alamat)
-        form.append("ajenis_kelamin", this.jenis_kelamin)
+        form.append("jenis_kelamin", this.state.jenis_kelamin)
         form.append("telp", this.state.telp)
         if (this.state.uploadFile) {
             form.append("image", this.state.image)
@@ -123,7 +123,7 @@ export default class Member extends React.Component {
             let url = base_url + "/member/" + selectedItem.id_member
             axios.delete(url, this.headerConfig())
                 .then(response => {
-                    // window.alert(response.data.message)
+                    window.alert(response.data.message)
                     this.getMember()
                 })
                 .catch(error => console.log(error))
@@ -148,7 +148,7 @@ export default class Member extends React.Component {
                                 alamat={item.alamat}
                                 jenis_kelamin={item.jenis_kelamin}
                                 telp={item.telp}
-                                image={member_image_url + "/" + item.image}
+                                image={image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}
                                 onDrop={() => this.dropMember(item)}
                             />

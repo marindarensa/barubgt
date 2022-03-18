@@ -23,11 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_member",
         as: "member",
       });
-      //menghubungkan transaksi -> paket
-      this.belongsTo(models.paket, {
-        foreignKey: "id_paket",
-        as: "paket",
-      });
       //menghubungkan transaksi -> detail_transaksi
       this.hasMany(models.detail_transaksi, {
         foreignKey: "id_detail_transaksi",
@@ -42,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      id_paket: DataTypes.INTEGER,
       id_member: DataTypes.INTEGER,
       tgl: DataTypes.DATE,
       batas_waktu: DataTypes.DATE,

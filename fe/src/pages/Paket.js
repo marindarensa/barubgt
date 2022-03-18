@@ -1,7 +1,7 @@
 import React from "react"
 import Navbar from "../component/Navbar"
 import PaketList from "../component/PaketList"
-import { base_url, paket_image_url } from "../Config.js"
+import { base_url, image_url } from "../Config.js"
 import $ from "jquery"
 import axios from "axios"
 
@@ -115,7 +115,7 @@ export default class Paket extends React.Component {
             let url = base_url + "/paket/" + selectedItem.id_paket
             axios.delete(url, this.headerConfig())
                 .then(response => {
-                    // window.alert(response.data.message)
+                    window.alert(response.data.message)
                     this.getPaket()
                 })
                 .catch(error => console.log(error))
@@ -133,12 +133,12 @@ export default class Paket extends React.Component {
                 <div className="container">
                     <h3 className="text-bold text-info mt-2">Paket List</h3>
                     <div className="row">
-                        {this.state.et.map(item => (
+                        {this.state.paket.map(item => (
                             <PaketList
                                 key={item.id_paket}
                                 jenis={item.jenis}
                                 harga={item.harga}
-                                image={paket_image_url + "/" + item.image}
+                                image={image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}
                                 onDrop={() => this.dropPaket(item)}
                             />

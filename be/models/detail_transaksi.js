@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_transaksi",
         as: "transaksi",
       });
+      //menghubungkan detail_transaksi -> paket
+      this.belongsTo(models.paket, {
+        foreignKey: "id_paket",
+        as: "paket",
+      });
     }
   }
   detail_transaksi.init(

@@ -79,8 +79,11 @@ module.exports = {
                 id: req.body.id,
                 jenis: req.body.jenis,
                 harga: req.body.harga,
-                image: req.file.path,
             };
+            if (req.file) {
+                // set new filename
+                data.image = req.file.path
+            }
             paket
                 .update(data, { where: param })
                 .then((result) => {
@@ -97,8 +100,9 @@ module.exports = {
         });
     },
     // controller DELETE
-    controllerDelete: (req, res) => {
-        const param = { id_paket: req.body.id_paket };
+    controllerDelete: async (req, res) => {
+        const param = { id_paket: req.params.id_paket };
+        let result = await paket.findOne({where: param})
         const oldFileName = result.image
             
         // delete old file
@@ -111,6 +115,7 @@ module.exports = {
                 res.json({
                     success: 1,
                     data: result,
+                    message: "Data Berhasil Dihapus",
                 });
             })
             .catch((error) => {
