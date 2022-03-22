@@ -13,7 +13,7 @@ export default class UserList extends React.Component{
                     <div className="col-sm-7">
                         {/* description */}
                         <h5 className="text-bold">Nama User: {this.props.nama}</h5>
-                        <h6>Email: {this.props.email}</h6>
+                        <h6>Username: {this.props.email}</h6>
                         <h6>Role: {this.props.role}</h6>
                     </div>
                     <div className="col-sm-2">

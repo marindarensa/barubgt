@@ -147,10 +147,11 @@ module.exports = {
                 token: token,
             });
         } else {
+            console.log(req.body)
             res.json({
                 logged: false,
                 message: "Username or password is incorrect",
-                data: result,
+                data: req.body,
             });
         }
     },

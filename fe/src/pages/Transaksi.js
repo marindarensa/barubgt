@@ -18,6 +18,7 @@ export default class Transaksi extends React.Component {
             dibayar: "",
             user: [],
             outlet: [],
+            action: "",
             selectedItem: null
         }
 
@@ -46,8 +47,25 @@ export default class Transaksi extends React.Component {
         let url = base_url + "/transaksi"
         axios.get(url, this.headerConfig())
             .then(response => {
-                this.setState({ transaksi: response.data.data })
-                console.log(this.state.transaksi);
+                // let dataTransaksi 
+                let dataTransaksi = response.data.data //array transaksi
+                if (dataTransaksi !== null || dataTransaksi !== undefined) {
+                    dataTransaksi.map((item, i) => {
+                        let details = item.detail_transaksi //array detail
+                        let total = 0
+
+                        details.map((detail)=>{
+                            let qty = detail.qty
+                            let harga = detail.paket.harga
+
+                            total += qty*harga
+                        })
+
+                        dataTransaksi[i].total = total
+                    })
+                }
+                this.setState({ transaksi: dataTransaksi })
+                // console.log(this.state.transaksi);
             })
             .catch(error => {
                 if (error.response) {
@@ -80,6 +98,11 @@ export default class Transaksi extends React.Component {
     }
 
 
+    convertTime = time => {
+        let date = new Date(time)
+        return `${date.getDate()}/${Number(date.getMonth()) + 1}/${date.getFullYear()} `
+    }
+    
     Edit = selectedItem => {
         $("#modal_transaksi").modal("show")
         this.setState({
@@ -97,6 +120,8 @@ export default class Transaksi extends React.Component {
             fillPassword: false,
         })
     }
+
+    
 
     saveTransaksi = event => {
         event.preventDefault()
@@ -117,14 +142,14 @@ export default class Transaksi extends React.Component {
             axios.post(url, form, this.headerConfig())
                 .then(response => {
                     // window.alert(response.data.message)
-                    this.getPaket()
+                    this.getTransaksi()
                 })
                 .catch(error => console.log(error))
         } else if (this.state.action === "update") {
             axios.put(url, form, this.headerConfig())
                 .then(response => {
                     // window.alert(response.data.message)
-                    this.getPaket()
+                    this.getTransaksi()
                 })
                 .catch(error => console.log(error))
         }
@@ -132,11 +157,11 @@ export default class Transaksi extends React.Component {
 
     dropTransaksi = selectedItem => {
         if (window.confirm("are you sure will delete this item?")) {
-            let url = base_url + "/transksi/" + selectedItem.id_transaksi
+            let url = base_url + "/transaksi/" + selectedItem.id_transaksi
             axios.delete(url, this.headerConfig())
                 .then(response => {
                     window.alert(response.data.message)
-                    this.getPaket()
+                    this.getTransaksi()
                 })
                 .catch(error => console.log(error))
         }
@@ -193,7 +218,8 @@ export default class Transaksi extends React.Component {
 
                                     Tanggal
                                     <input type="date" className="form-control mb-1"
-                                        value={this.state.tgl}
+                                
+                                        value={this.convertTime(this.state.tgl)}
                                         onChange={ev => this.setState({ tgl: ev.target.value })}
                                         required
                                     />
@@ -248,6 +274,54 @@ export default class Transaksi extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                {/* modal component */}
+                {/* <div className="modal fade" id={`modalDetail${this.props.id_transaksi}`}>
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header bg-success text-white">
+                                <h5>Detail of Transaksi</h5>
+                            </div>
+                            <div className="modal-body">
+                                <h5>Member: {this.props.nama_member}</h5>
+                                <h6>Time: {this.convertTime(this.props.tgl)}</h6>
+                                <table className="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Paket</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {this.props.paket.map((item, index) => (
+                                            <tr key={item.id_paket}>
+                                                <td>{`${index + 1}`}</td>
+                                                <td>{item.paket.jenis_paket}</td>
+                                                <td>Rp {item.paket.harga}</td>
+                                                <td>{item.qty}</td>
+                                                <td className="text-right">Rp {item.paket.harga * item.qty}</td>
+                                            </tr>
+                                        ))}
+                                        <tr>
+                                            <td colSpan="4" className="text-danger text-bold">
+                                                <h4>Total</h4>
+                                            </td>
+                                            <td className="text-right text-danger text-bold">
+                                                <h4>
+                                                    Rp {this.getAmount(this.props.paket)}
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
             </div>
         )
     }

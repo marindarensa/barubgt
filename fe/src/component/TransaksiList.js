@@ -1,14 +1,6 @@
 import React from "react";
 
 export default class TransaksiList extends React.Component {
-    getAmount = paket => {
-        let total = 0
-        // console.log(paket)
-        // paket.map(it => {
-        //     total += Number(it.paket.harga) * Number(it.qty)
-        // })
-        return total
-    }
 
     convertTime = time => {
         let date = new Date(time)
@@ -26,7 +18,7 @@ export default class TransaksiList extends React.Component {
                         <h6>Status: {this.props.status}</h6>
                         <h6>Pembayaran: {this.props.dibayar}</h6>
                         <h6>Tanggal: {this.convertTime(this.props.tgl)}</h6>
-                        <h6>Total: Rp {this.getAmount(this.props.paket)}</h6>
+                        <h6>Total: Rp {this.props.total}</h6>
                     </div>
                     <div className="col-sm-2">
                         {/* action */}
@@ -38,6 +30,11 @@ export default class TransaksiList extends React.Component {
                         <button className="btn btn-sm btn-danger btn-block"
                             onClick={this.props.onDrop}>
                             Delete
+                        </button>
+
+                        <button className="btn btn-sm btn-success btn-block" data-toggle="modal"
+                            data-target={`#modalDetail${this.props.id_transaksi}`}>
+                            Detail
                         </button>
                     </div>
                 </div>

@@ -151,7 +151,7 @@ export default class User extends React.Component {
                                 nama={item.nama}
                                 username={item.username}
                                 password={item.password}
-                                email={item.email}
+                                email={item.username}
                                 role={item.role}
                                 image={image_url + "/" + item.image}
                                 onEdit={() => this.Edit(item)}

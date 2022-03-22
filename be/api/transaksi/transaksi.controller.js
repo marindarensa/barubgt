@@ -61,41 +61,21 @@ module.exports = {
             .create(newTransaksi)
             .then((result) => {
                 console.log("controlerAdd terpanggil .....");
-                // jika insert transaksi berhasil, lanjut
-                // insert data detail transaksinya
-
-                let detail = {};
-                detail.qty = req.body.qty;
-                detail.id_paket = req.body.id_paket;
-                detail.id_transaksi = result.id_transaksi;
-                detail.total = req.body.total;
-
-                // data dari detail_transaksi datang dari postman, jadi harus dikirim juga dari postman
-
-                // detail_transaksi : {
-                //  id_transaksi : foreignKey nang transaksi
-                //  id_detail_transaksi : increment,
-                //  id_paket :  dari postman
-                //  qty : dari postman
-                // }
-
-                // for (let i = 0; i < detail.length; i++) {
-                //     // sebelumnya
-                //     // nilai detail[i] hanya punya key id_paket dan qty saja
-                //     detail[i].id_transaksi = newIDTransaksi
-                // }
-
+                let lastID = result.id_transaksi
+                detail = req.body.detail_transaksi
+                detail.forEach(element => {
+                element.id_transaksi = lastID
+                });
                 // proses insert detail_transaksi
                 detail_transaksi
-                    .create(detail)
+                    .bulkCreate(detail)
                     .then((result) => {
-                        console.log("resultDetailTransaksi : ", result);
-                        return res.json({
+                        res.json({
                             message: `Data transaksi berhasil ditambahkan`,
                         });
                     })
                     .catch((error) => {
-                        return res.json({
+                        rres.json({
                             message: error.message,
                         });
                     });
