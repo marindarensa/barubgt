@@ -5,7 +5,7 @@ const authorize = require("../auth/authorize");
 const { IsAdminKasir, IsAdmin, IsOwner } = require("../auth/role");
 
 // routes
-router.get("/", authorize, IsAdmin, controllerGetAll); //admin only
+router.get("/", authorize, controllerGetAll); //admin only
 router.get("/:id_paket", authorize, IsAdmin, controllerGetId); //admin only
 router.post("/", authorize, IsAdmin, controllerAdd); // all authenticated users
 router.put("/", authorize, IsAdmin, controllerEdit); //admin only

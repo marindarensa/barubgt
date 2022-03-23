@@ -18,10 +18,12 @@ export default class Outlet extends React.Component {
             uploadFile: true,
             fillPassword: true,
             id_outlet: "",
+            user: ""
         }
 
         if (localStorage.getItem("token")) {
             this.state.token = localStorage.getItem("token")
+            this.state.user = JSON.parse(localStorage.getItem("user"))
         } else {
             window.location = "/login"
         }
@@ -123,67 +125,73 @@ export default class Outlet extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Navbar />
-                <div className="container">
-                    <h3 className="text-bold text-info mt-2">Outlet List</h3>
-                    <div className="row">
-                        {this.state.outlet.map(item => (
-                            <OutletList
-                                key={item.id_outlet}
-                                tempat={item.tempat}
-                                image={image_url + "/" + item.image}
-                                onEdit={() => this.Edit(item)}
-                                onDrop={() => this.dropOutlet(item)}
-                            />
-                        ))}
+        if (this.state.user.role === "admin") {
+            return (
+                <div>
+                    <Navbar />
+                    <div className="container">
+                        <h3 className="text-bold text-info mt-2">Outlet List</h3>
+                        <div className="row">
+                            {this.state.outlet.map(item => (
+                                <OutletList
+                                    key={item.id_outlet}
+                                    tempat={item.tempat}
+                                    image={image_url + "/" + item.image}
+                                    onEdit={() => this.Edit(item)}
+                                    onDrop={() => this.dropOutlet(item)}
+                                />
+                            ))}
+                        </div>
+                        <button className="btn btn-success" onClick={() => this.Add()}>
+                            Add Outlet
+                        </button>
                     </div>
-                    <button className="btn btn-success" onClick={() => this.Add()}>
-                        Add Outlet
-                    </button>
-                </div>
 
-                {/* modal outlet  */}
-                <div className="modal fade" id="modal_outlet">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header bg-info text-white">
-                                <h4>Form Outlet</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form onSubmit={ev => this.saveOutlet(ev)}>
-                                    Tempat
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.tempat}
-                                        onChange={ev => this.setState({ tempat: ev.target.value })}
-                                        required
-                                    />
+                    {/* modal outlet  */}
+                    <div className="modal fade" id="modal_outlet">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header bg-info text-white">
+                                    <h4>Form Outlet</h4>
+                                </div>
+                                <div className="modal-body">
+                                    <form onSubmit={ev => this.saveOutlet(ev)}>
+                                        Tempat
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.tempat}
+                                            onChange={ev => this.setState({ tempat: ev.target.value })}
+                                            required
+                                        />
 
-                                    {this.state.action === "update" && this.state.uploadFile === false ? (
-                                        <button className="btn btn-sm btn-dark mb-1 btn-block"
-                                            onClick={() => this.setState({ uploadFile: true })}>
-                                            Change Outlet Image
+                                        {this.state.action === "update" && this.state.uploadFile === false ? (
+                                            <button className="btn btn-sm btn-dark mb-1 btn-block"
+                                                onClick={() => this.setState({ uploadFile: true })}>
+                                                Change Outlet Image
+                                            </button>
+                                        ) : (
+                                            <div>
+                                                Outlet Image
+                                                <input type="file" className="form-control mb-1"
+                                                    onChange={ev => this.setState({ image: ev.target.files[0] })}
+                                                    required
+                                                />
+                                            </div>
+                                        )}
+
+                                        <button type="submit" className="btn btn-block btn-success">
+                                            Simpan
                                         </button>
-                                    ) : (
-                                        <div>
-                                            Outlet Image
-                                            <input type="file" className="form-control mb-1"
-                                                onChange={ev => this.setState({ image: ev.target.files[0] })}
-                                                required
-                                            />
-                                        </div>
-                                    )}
-
-                                    <button type="submit" className="btn btn-block btn-success">
-                                        Simpan
-                                    </button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else {
+            return (
+                <h1>Access Denied</h1>
+            )
+        }
     }
 }

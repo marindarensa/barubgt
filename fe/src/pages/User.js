@@ -22,10 +22,12 @@ export default class User extends React.Component {
             uploadFile: true,
             fillPassword: true,
             id_user: "",
+            userData: ""
         }
 
         if (localStorage.getItem("token")) {
             this.state.token = localStorage.getItem("token")
+            this.state.userData = JSON.parse(localStorage.getItem("user"))
         } else {
             window.location = "/login"
         }
@@ -75,7 +77,7 @@ export default class User extends React.Component {
 
 
     Edit = selectedItem => {
-    $("#modal_user").modal("show")
+        $("#modal_user").modal("show")
         this.setState({
             action: "update",
             id_user: selectedItem.id_user,
@@ -139,99 +141,98 @@ export default class User extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Navbar />
-                <div className="container">
-                    <h3 className="text-bold text-info mt-2">User List</h3>
-                    <div className="row">
-                        {this.state.user.map(item => (
-                            <UserList
-                                key={item.id_user}
-                                nama={item.nama}
-                                username={item.username}
-                                password={item.password}
-                                email={item.username}
-                                role={item.role}
-                                image={image_url + "/" + item.image}
-                                onEdit={() => this.Edit(item)}
-                                onDrop={() => this.dropUser(item)}
-                            />
-                        ))}
+        if (this.state.userData.role === "admin") {
+            return (
+                <div>
+                    <Navbar />
+                    <div className="container">
+                        <h3 className="text-bold text-info mt-2">User List</h3>
+                        <div className="row">
+                            {this.state.user.map(item => (
+                                <UserList
+                                    key={item.id_user}
+                                    nama={item.nama}
+                                    username={item.username}
+                                    password={item.password}
+                                    email={item.username}
+                                    role={item.role}
+                                    image={image_url + "/" + item.image}
+                                    onEdit={() => this.Edit(item)}
+                                    onDrop={() => this.dropUser(item)}
+                                />
+                            ))}
+                        </div>
+                        <button className="btn btn-success" onClick={() => this.Add()}>
+                            Add User
+                        </button>
                     </div>
-                    <button className="btn btn-success" onClick={() => this.Add()}>
-                        Add User
-                    </button>
-                </div>
 
-                {/* modal user  */}
-                <div className="modal fade" id="modal_user">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header bg-info text-white">
-                                <h4>Form User</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form onSubmit={ev => this.saveUser(ev)}>
-                                    Nama
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.nama}
-                                        onChange={ev => this.setState({ nama: ev.target.value })}
-                                        required
-                                    />
+                    {/* modal user  */}
+                    <div className="modal fade" id="modal_user">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header bg-info text-white">
+                                    <h4>Form User</h4>
+                                </div>
+                                <div className="modal-body">
+                                    <form onSubmit={ev => this.saveUser(ev)}>
+                                        Nama
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.nama}
+                                            onChange={ev => this.setState({ nama: ev.target.value })}
+                                            required
+                                        />
 
-                                    Username
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.username}
-                                        onChange={ev => this.setState({ username: ev.target.value })}
-                                        required
-                                    />
+                                        Username
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.username}
+                                            onChange={ev => this.setState({ username: ev.target.value })}
+                                            required
+                                        />
 
-                                    Password
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.password}
-                                        onChange={ev => this.setState({ password: ev.target.value })}
-                                        required
-                                    />
+                                        Password
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.password}
+                                            onChange={ev => this.setState({ password: ev.target.value })}
+                                            required
+                                        />
 
-                                    Email
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.email}
-                                        onChange={ev => this.setState({ email: ev.target.value })}
-                                        required
-                                    />
+                                        Role
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.role}
+                                            onChange={ev => this.setState({ role: ev.target.value })}
+                                            required
+                                        />
 
-                                    Role
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.role}
-                                        onChange={ev => this.setState({ role: ev.target.value })}
-                                        required
-                                    />
+                                        {this.state.action === "update" && this.state.uploadFile === false ? (
+                                            <button className="btn btn-sm btn-dark mb-1 btn-block"
+                                                onClick={() => this.setState({ uploadFile: true })}>
+                                                Change User Image
+                                            </button>
+                                        ) : (
+                                            <div>
+                                                User Image
+                                                <input type="file" className="form-control mb-1"
+                                                    onChange={ev => this.setState({ image: ev.target.files[0] })}
+                                                    required
+                                                />
+                                            </div>
+                                        )}
 
-                                    {this.state.action === "update" && this.state.uploadFile === false ? (
-                                        <button className="btn btn-sm btn-dark mb-1 btn-block"
-                                            onClick={() => this.setState({ uploadFile: true })}>
-                                            Change User Image
+                                        <button type="submit" className="btn btn-block btn-success">
+                                            Simpan
                                         </button>
-                                    ) : (
-                                        <div>
-                                            User Image
-                                            <input type="file" className="form-control mb-1"
-                                                onChange={ev => this.setState({ image: ev.target.files[0] })}
-                                                required
-                                            />
-                                        </div>
-                                    )}
-
-                                    <button type="submit" className="btn btn-block btn-success">
-                                        Simpan
-                                    </button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <h1>Access Denied</h1>
+            )
+        }
     }
 }

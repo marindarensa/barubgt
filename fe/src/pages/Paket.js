@@ -19,10 +19,12 @@ export default class Paket extends React.Component {
             uploadFile: true,
             fillPassword: true,
             id_paket: "",
+            user: ""
         }
 
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem("token") && localStorage.getItem("user")) {
             this.state.token = localStorage.getItem("token")
+            this.state.user = JSON.parse(localStorage.getItem("user"))
         } else {
             window.location = "/login"
         }
@@ -127,75 +129,81 @@ export default class Paket extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Navbar />
-                <div className="container">
-                    <h3 className="text-bold text-info mt-2">Paket List</h3>
-                    <div className="row">
-                        {this.state.paket.map(item => (
-                            <PaketList
-                                key={item.id_paket}
-                                jenis={item.jenis}
-                                harga={item.harga}
-                                image={image_url + "/" + item.image}
-                                onEdit={() => this.Edit(item)}
-                                onDrop={() => this.dropPaket(item)}
-                            />
-                        ))}
+        if (this.state.user.role === "admin") {
+            return (
+                <div>
+                    <Navbar />
+                    <div className="container">
+                        <h3 className="text-bold text-info mt-2">Paket List</h3>
+                        <div className="row">
+                            {this.state.paket.map(item => (
+                                <PaketList
+                                    key={item.id_paket}
+                                    jenis={item.jenis}
+                                    harga={item.harga}
+                                    image={image_url + "/" + item.image}
+                                    onEdit={() => this.Edit(item)}
+                                    onDrop={() => this.dropPaket(item)}
+                                />
+                            ))}
+                        </div>
+                        <button className="btn btn-success" onClick={() => this.Add()}>
+                            Add Paket
+                        </button>
                     </div>
-                    <button className="btn btn-success" onClick={() => this.Add()}>
-                        Add Paket
-                    </button>
-                </div>
 
-                {/* modal paket  */}
-                <div className="modal fade" id="modal_paket">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header bg-info text-white">
-                                <h4>Form Paket</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form onSubmit={ev => this.savePaket(ev)}>
-                                    Jenis
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.jenis}
-                                        onChange={ev => this.setState({ jenis: ev.target.value })}
-                                        required
-                                    />
+                    {/* modal paket  */}
+                    <div className="modal fade" id="modal_paket">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header bg-info text-white">
+                                    <h4>Form Paket</h4>
+                                </div>
+                                <div className="modal-body">
+                                    <form onSubmit={ev => this.savePaket(ev)}>
+                                        Jenis
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.jenis}
+                                            onChange={ev => this.setState({ jenis: ev.target.value })}
+                                            required
+                                        />
 
-                                    Harga
-                                    <input type="text" className="form-control mb-1"
-                                        value={this.state.harga}
-                                        onChange={ev => this.setState({ harga: ev.target.value })}
-                                        required
-                                    />
+                                        Harga
+                                        <input type="text" className="form-control mb-1"
+                                            value={this.state.harga}
+                                            onChange={ev => this.setState({ harga: ev.target.value })}
+                                            required
+                                        />
 
-                                    {this.state.action === "update" && this.state.uploadFile === false ? (
-                                        <button className="btn btn-sm btn-dark mb-1 btn-block"
-                                            onClick={() => this.setState({ uploadFile: true })}>
-                                            Change Paket Image
+                                        {this.state.action === "update" && this.state.uploadFile === false ? (
+                                            <button className="btn btn-sm btn-dark mb-1 btn-block"
+                                                onClick={() => this.setState({ uploadFile: true })}>
+                                                Change Paket Image
+                                            </button>
+                                        ) : (
+                                            <div>
+                                                Paket Image
+                                                <input type="file" className="form-control mb-1"
+                                                    onChange={ev => this.setState({ image: ev.target.files[0] })}
+                                                    required
+                                                />
+                                            </div>
+                                        )}
+
+                                        <button type="submit" className="btn btn-block btn-success">
+                                            Simpan
                                         </button>
-                                    ) : (
-                                        <div>
-                                            Paket Image
-                                            <input type="file" className="form-control mb-1"
-                                                onChange={ev => this.setState({ image: ev.target.files[0] })}
-                                                required
-                                            />
-                                        </div>
-                                    )}
-
-                                    <button type="submit" className="btn btn-block btn-success">
-                                        Simpan
-                                    </button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <h1>Access Denied</h1>
+            )
+        }
     }
 }
