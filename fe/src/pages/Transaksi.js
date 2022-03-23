@@ -203,17 +203,6 @@ export default class Transaksi extends React.Component {
     saveTransaksi = event => {
         event.preventDefault()
         $("#modal_transaksi").modal("hide")
-        // let form = new FormData()
-        // form.append("id_transaksi", this.state.id_transaksi)
-        // form.append("id_member", this.state.id_member)
-        // form.append("tgl", this.state.tgl)
-        // form.append("batas_waktu", this.state.batas_waktu)
-        // form.append("tgl_bayar", this.state.tgl_bayar)
-        // form.append("status", this.state.status)
-        // form.append("dibayar", this.state.dibayar)
-        // form.append("id_user", this.state.id_user)
-        // form.append("id_outlet", this.state.id_outlet)
-
         const form = {
             id_user: this.state.id_user,
             id_member: this.state.id_member,
@@ -320,6 +309,19 @@ export default class Transaksi extends React.Component {
                                             </select>
                                         </div>
 
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                            </div>
+                                            <select class="custom-select" id="inputGroupSelect01" onChange={ev => this.setState({ status: ev.target.value })}>
+                                                <option selected>Choose...</option>
+                                                <option value="baru">baru</option>
+                                                <option value="proses">proses</option>
+                                                <option value="selesai">selesai</option>
+                                                <option value="diambil">diambil</option>
+                                            </select>
+                                        </div>
+
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label class="input-group-text" for="inputGroupSelect01">Member</label>
@@ -389,54 +391,6 @@ export default class Transaksi extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                    {/* modal component */}
-                    {/* <div className="modal fade" id={`modalDetail${this.props.id_transaksi}`}>
-                    <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
-                            <div className="modal-header bg-success text-white">
-                                <h5>Detail of Transaksi</h5>
-                            </div>
-                            <div className="modal-body">
-                                <h5>Member: {this.props.nama_member}</h5>
-                                <h6>Time: {this.convertTime(this.props.tgl)}</h6>
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Paket</th>
-                                            <th>Harga</th>
-                                            <th>Qty</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {this.props.paket.map((item, index) => (
-                                            <tr key={item.id_paket}>
-                                                <td>{`${index + 1}`}</td>
-                                                <td>{item.paket.jenis_paket}</td>
-                                                <td>Rp {item.paket.harga}</td>
-                                                <td>{item.qty}</td>
-                                                <td className="text-right">Rp {item.paket.harga * item.qty}</td>
-                                            </tr>
-                                        ))}
-                                        <tr>
-                                            <td colSpan="4" className="text-danger text-bold">
-                                                <h4>Total</h4>
-                                            </td>
-                                            <td className="text-right text-danger text-bold">
-                                                <h4>
-                                                    Rp {this.getAmount(this.props.paket)}
-                                                </h4>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 </div>
             )
         }

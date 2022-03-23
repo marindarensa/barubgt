@@ -59,7 +59,7 @@ module.exports = {
             tgl: date,
             batas_waktu: batas,
             tgl_bayar: tgl_bayar,
-            status: "baru",
+            status: req.body.status,
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
             id_outlet: req.body.id_outlet,
