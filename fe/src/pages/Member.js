@@ -137,7 +137,7 @@ export default class Member extends React.Component {
     }
 
     render() {
-        if (this.state.user.role == "kasir") {
+        if (this.state.user.role == "admin" || this.state.user.role == "kasir") {
             return (
                 <div>
                     <Navbar />

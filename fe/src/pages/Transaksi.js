@@ -274,7 +274,7 @@ export default class Transaksi extends React.Component {
                                     outlet={item.outlet.tempat}
                                     paket={item.detail_transaksi.paket}
                                     status={item.status}
-                                    pembayaran={item.dibayar}
+                                    dibayar={item.dibayar}
                                     tgl={item.tgl}
                                     total={item.total}
                                     onEdit={() => this.Edit(item)}

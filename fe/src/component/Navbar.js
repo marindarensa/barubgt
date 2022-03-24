@@ -11,7 +11,7 @@ class Navbar extends React.Component {
         return (
             <div className="navbar navbar-expand-lg bg-dark navbar-dark">
                 <a className="navbar-brand">
-                    MR Laundry
+                    <b>MR Laundry</b>
                 </a>
 
                 {/* show and hide menu */}
