@@ -189,9 +189,8 @@ export default class Outlet extends React.Component {
                 </div>
             )
         }else {
-            return (
-                <h1>Access Denied</h1>
-            )
+            window.alert("Access Denied")
+            window.location = '/'
         }
     }
 }

@@ -61,7 +61,7 @@ export default class Transaksi extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
+                        console.log(error.response.status)
                     }
                 } else {
                     console.log(error);
@@ -80,7 +80,7 @@ export default class Transaksi extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
+                        console.log(error.response.status)
                     }
                 } else {
                     console.log(error);
@@ -99,7 +99,7 @@ export default class Transaksi extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
+                        console.log(error.response.status)
                     }
                 } else {
                     console.log(error);
@@ -118,7 +118,7 @@ export default class Transaksi extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         // window.alert(error.response.data.message)
-                        this.props.history.push("/login")
+                        console.log(error.response.status)
                     }
                 } else {
                     console.log(error);
@@ -155,7 +155,6 @@ export default class Transaksi extends React.Component {
                 if (error.response) {
                     if (error.response.status) {
                         console.log(error.response.status)
-                        this.props.history.push("/login")
                     }
                 } else {
                     console.log(error);
@@ -188,9 +187,6 @@ export default class Transaksi extends React.Component {
             action: "update",
             id_transaksi: selectedItem.id_transaksi,
             id_member: selectedItem.id_member,
-            tgl: selectedItem.tgl,
-            batas_waktu: selectedItem.batas_waktu,
-            tgl_bayar: selectedItem.tgl_bayar,
             status: selectedItem.status,
             dibayar: selectedItem.dibayar,
             id_user: selectedItem.id_user,
@@ -206,6 +202,7 @@ export default class Transaksi extends React.Component {
         const form = {
             id_user: this.state.id_user,
             id_member: this.state.id_member,
+            status: this.state.status,
             id_outlet: this.state.id_outlet,
             dibayar: this.state.dibayar,
             detail_transaksi: this.state.detail_transaksi
@@ -259,7 +256,7 @@ export default class Transaksi extends React.Component {
     }
 
     render() {
-        if (this.state.userData.role === "admin" || this.state.userData.role === "kasir") {
+        if (this.state.userData.role === "admin" || this.state.userData.role === "kasir" || this.state.userData.role === "owner") {
             return (
                 <div>
                     <Navbar />
@@ -393,11 +390,9 @@ export default class Transaksi extends React.Component {
                     </div>
                 </div>
             )
-        }
-        else {
-            return (
-                <h1>Access Denied</h1>
-            )
+        }else {
+            window.alert("Access Denied")
+            window.location = '/'
         }
     }
 }

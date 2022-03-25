@@ -200,10 +200,9 @@ export default class Paket extends React.Component {
                     </div>
                 </div>
             )
-        }else{
-            return(
-                <h1>Access Denied</h1>
-            )
+        }else {
+            window.alert("Access Denied")
+            window.location = '/'
         }
     }
 }

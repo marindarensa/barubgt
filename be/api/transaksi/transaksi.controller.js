@@ -51,7 +51,7 @@ module.exports = {
     controllerAdd: (req, res) => {
         console.log(req.body);
         const tgl_bayar = ""
-        if(req.body.dibayar === "dibayar"){
+        if (req.body.dibayar === "dibayar") {
             tgl_bayar = date
         }
         let newTransaksi = {
@@ -70,9 +70,14 @@ module.exports = {
             .then((result) => {
                 console.log("controlerAdd terpanggil .....");
                 let lastID = result.id_transaksi
-                detail = req.body.detail_transaksi
+                let detail = req.body.detail_transaksi
+
+                for (let i = 0; i < detail.length; i++) {
+                    detail[i].id_transaksi = lastID
+                }
+
                 detail.forEach(element => {
-                element.id_transaksi = lastID
+                    element.id_transaksi = lastID
                 });
                 // proses insert detail_transaksi
                 detail_transaksi
@@ -100,9 +105,6 @@ module.exports = {
         const data = {
             id: req.body.id,
             id_member: req.body.id_member,
-            tgl: req.body.tgl,
-            batas_waktu: req.body.batas_waktu,
-            tgl_bayar: req.body.tgl_bayar,
             status: req.body.status,
             dibayar: req.body.dibayar,
             id_user: req.body.id_user,
@@ -123,9 +125,9 @@ module.exports = {
             });
     },
     // controller DELETE
-    controllerDelete: async(req, res) => {
+    controllerDelete: async (req, res) => {
         const param = { id_transaksi: req.params.id_transaksi };
-        let result = await transaksi.findOne({where: param})
+        let result = await transaksi.findOne({ where: param })
         transaksi
             .destroy({ where: param })
             .then((result) => {

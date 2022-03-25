@@ -197,12 +197,17 @@ export default class User extends React.Component {
                                             required
                                         />
 
-                                        Role
-                                        <input type="text" className="form-control mb-1"
-                                            value={this.state.role}
-                                            onChange={ev => this.setState({ role: ev.target.value })}
-                                            required
-                                        />
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text" for="inputGroupSelect01">Role</label>
+                                            </div>
+                                            <select class="custom-select" id="inputGroupSelect01" onChange={ev => this.setState({ role: ev.target.value })}>
+                                                <option selected>Choose...</option>
+                                                <option value="admin">admin</option>
+                                                <option value="kasir">kasir</option>
+                                                <option value="owner">owner</option>
+                                            </select>
+                                        </div>
 
                                         {this.state.action === "update" && this.state.uploadFile === false ? (
                                             <button className="btn btn-sm btn-dark mb-1 btn-block"
@@ -230,9 +235,8 @@ export default class User extends React.Component {
                 </div>
             )
         } else {
-            return (
-                <h1>Access Denied</h1>
-            )
+            window.alert("Access Denied")
+            window.location = '/'
         }
     }
 }
